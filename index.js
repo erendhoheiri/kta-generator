@@ -53,6 +53,6 @@ const generetPdf = async (name, pimkot) => {
   });
 
   const uri = await pdfDoc.saveAsBase64({ dataUri: true });
-  saveAs(uri, '1.pdf', { autoBom: true });
+  saveAs(uri, `KTA-Kongres-${name}.pdf`, { autoBom: true });
   // document.querySelector("#myPDF").src = uri;
 };
