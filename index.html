@@ -1,27 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>T-Software Cert Genretor</title>
-</head>
-<body>
-    <header>
-        <img src="logo.png" alt="logo">
-        <h2>Get Your Certificate</h2>
-        <h1><a target="_blank" href="https://t-software4.blogspot.com/">By T-Software Education Accedmye</a></h1>
-    </header>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>KONGRES FPPI - KTA GENERATOR</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <img src="logo.jpeg" alt="logo" />
+        <h1 class="title">Silakan Unduh</h1>
+        <h2 class="subtitle">Kartu Tanda Anggota Kongres</h2>
+      </header>
 
-    <main>
-        <label for="name">Enter Your Name</label>
-        <input type="text" name="name" id="name" autocapitalize="name" placeholder="Your Name" required> 
-        <button id="submit">Get Certificate</button>
-    </main>
+      <main>
+        <label for="name">Masukkan Nama Anda</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="ex: Rizky Ramadhan"
+          oninput="this.value = this.value.toUpperCase()"
+          required
+        />
+        <label for="pimkot">Masukkan Lokasi Pimpinan Kota</label>
+        <select id="pimkot" name="pimkot">
+          <option value="" disabled selected>Pilih Lokasi Pimpinan Kota</option>
+          <option value="PIMPINAN KOTA PANDEGLANG">
+            PIMPINAN KOTA PANDEGLANG
+          </option>
+          <option value="PIMPINAN KOTA JAKARTA">PIMPINAN KOTA JAKARTA</option>
+          <option value="PIMPINAN KOTA CIREBON">PIMPINAN KOTA CIREBON</option>
+          <option value="PIMPINAN KOTA SEMARANG">PIMPINAN KOTA SEMARANG</option>
+          <option value="PIMPINAN KOTA SALATIGA">PIMPINAN KOTA SALATIGA</option>
+          <option value="PIMPINAN KOTA JOGJA">PIMPINAN KOTA JOGJA</option>
+          <option value="PIMPINAN KOTA KEDIRI">PIMPINAN KOTA KEDIRI</option>
+          <option value="PIMPINAN KOTA GRESIK">PIMPINAN KOTA GRESIK</option>
+          <option value="PIMPINAN KOTA BALIKPAPAN">
+            PIMPINAN KOTA BALIKPAPAN
+          </option>
+          <option value="PIMPINAN KOTA PALANGKA RAYA">
+            PIMPINAN KOTA PALANGKA RAYA
+          </option>
+          <option value="PIMPINAN KOTA MAKASSAR">PIMPINAN KOTA MAKASSAR</option>
+          <option value="PIMPINAN KOTA MAMUJU">PIMPINAN KOTA MAMUJU</option>
+          <option value="PIMPINAN KOTA MAJENE">PIMPINAN KOTA MAJENE</option>
+          <option value="PIMPINAN KOTA POLEWALI">PIMPINAN KOTA POLEWALI</option>
+          <option value="PIMPINAN KOTA PASANG KAYU">
+            PIMPINAN KOTA PASANG KAYU
+          </option>
+          <option value="PIMPINAN KOTA MAMASA">PIMPINAN KOTA MAMASA</option>
+          <option value="PIMPINAN KOTA PALU">PIMPINAN KOTA PALU</option>
+          <option value="PIMPINAN KOTA AMBON">PIMPINAN KOTA AMBON</option>
+          <option value="PIMPINAN KOTA BIMA">PIMPINAN KOTA BIMA</option>
+        </select>
+        <button id="submit">Unduh</button>
+      </main>
+    </div>
 
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
     <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
     <script src="FileSever.js"></script>
     <script src="index.js"></script>
-</body>
+  </body>
 </html>

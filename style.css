@@ -1,64 +1,149 @@
 * {
-    margin:0;
-    padding:0;
-    font-weight: normal;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
 }
 
 body {
-    font-family: system-ui;
-    text-align: center;
+  font-family: system-ui;
+  text-align: center;
 }
 
 header img {
-    height: 120px;
-    border-radius: 50%;
+  height: 120px;
 }
 
 header h1 a {
-    text-decoration: none;
-    color:gray;
+  text-decoration: none;
+  color: gray;
 }
 
-main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem;
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
 }
 
-main label{
-    margin-top: 1.5rem;
+main input {
+  margin: 1rem 0;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 10px;
+  border-bottom: 2px solid gray;
+  outline: none;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  text-align: center;
 }
 
-main input[name="name"] {
-    margin: 1rem 0;
-    margin-bottom: 2rem;
-    border:none;
-    border-bottom: 2px solid gray;
-    outline: none;
-    font-size: 1rem;
-    text-align: center;
+main select {
+  margin: 1rem 0;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 10px;
+  border-bottom: 2px solid gray;
+  outline: none;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  text-align: center;
 }
 
 main button {
-    padding:0.5rem 0.9rem;
-    border: 1px solid gray;
-    border-radius: 10px;
-    background: transparent;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  padding: 0.5rem 4rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+  margin-top: 2rem;
 }
 
 main button:hover {
-    background-color:  gray;
-    color:white;
+  background-color: rgba(207, 0, 15, 0.9);
+  color: white;
 }
 
-@media (prefers-color-scheme:dark){
-    body{
-        background-color: #212121;
-        color:white;
-    }
+@media (prefers-color-scheme: dark) {
+  body {
+    color: white;
+    font-family: sans-serif;
+  }
+}
+
+.wrapper {
+  height: 100vh;
+  background-image: radial-gradient(
+      circle at 37% 80%,
+      hsla(180, 0%, 7%, 0.1) 0%,
+      hsla(180, 0%, 7%, 0.1) 45%,
+      transparent 45%,
+      transparent 73%,
+      transparent 73%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 60% 45%,
+      hsla(180, 0%, 7%, 0.1) 0%,
+      hsla(180, 0%, 7%, 0.1) 67%,
+      transparent 67%,
+      transparent 71%,
+      transparent 71%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 23% 84%,
+      hsla(180, 0%, 7%, 0.1) 0%,
+      hsla(180, 0%, 7%, 0.1) 55%,
+      transparent 55%,
+      transparent 97%,
+      transparent 97%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 52% 76%,
+      hsla(180, 0%, 7%, 0.1) 0%,
+      hsla(180, 0%, 7%, 0.1) 37%,
+      transparent 37%,
+      transparent 95%,
+      transparent 95%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 50% 81%,
+      hsla(180, 0%, 7%, 0.1) 0%,
+      hsla(180, 0%, 7%, 0.1) 79%,
+      transparent 79%,
+      transparent 85%,
+      transparent 85%,
+      transparent 100%
+    ),
+    linear-gradient(45deg, rgba(150, 40, 27, 0.9), rgba(207, 0, 15, 0.9)),
+    url('/images/hero.jpg');
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  margin-top: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }

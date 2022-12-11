@@ -1,51 +1,58 @@
 let name = document.getElementById('name');
 let submit = document.getElementById('submit');
-submit.addEventListener('click',()=>{
-    let credentialUser = Math.ceil(Math.random()*10000);
-    let str = "TSStudetn2020"+credentialUser.toString();
-    generetPdf(name.value,str);
-    name.value = '';
-})
+submit.addEventListener('click', () => {
+  //   let credentialUser = Math.ceil(Math.random() * 10000);
+  //   let str = 'TSStudetn2020' + credentialUser.toString();
+  generetPdf(name.value, pimkot.value);
+  name.value = '';
+  pimkot.value = '';
+});
 
+const generetPdf = async (name, pimkot) => {
+  const { PDFDocument, StandardFonts, rgb } = PDFLib;
 
-const generetPdf = async (name,cr)=>{
-    const {PDFDocument,rgb} = PDFLib;
+  if (name === '' || pimkot === '') {
+    alert('Masukkan Nama & Lokasi Pimpinan Kota Anda');
+    return;
+  }
 
-    const exBytes = await fetch("./Certificate.pdf").then((res)=>{
-        return res.arrayBuffer()
-    });
+  const exBytes = await fetch('./Cert.pdf').then(res => {
+    return res.arrayBuffer();
+  });
 
-    const exFont = await fetch('./Ubuntu-Regular.ttf').then((res)=>{
-        return res.arrayBuffer();
-    })
+  //   const exFont = await fetch('./Ubuntu-Regular.ttf').then(res => {
+  //     return res.arrayBuffer();
+  //   });
 
+  const pdfDoc = await PDFDocument.load(exBytes);
 
-    
-    
-    const pdfDoc = await PDFDocument.load(exBytes)
-    
-    pdfDoc.registerFontkit(fontkit);
-    const myFont = await pdfDoc.embedFont(exFont);
+  pdfDoc.registerFontkit(fontkit);
+  //   const myFont = await pdfDoc.embedFont(exFont);
+  const timesRomanFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
-    const pages = pdfDoc.getPages();
-    const firstP = pages[0];
-    firstP.drawText(name,{
-        x:330,
-        y:340,
-        size:70,
-        font:myFont,
-        color: rgb(.2, 0.84, 0.67)
-    })
+  let nameWidth = await timesRomanFont.widthOfTextAtSize(name, 18);
+  let pimkotWidth = await timesRomanFont.widthOfTextAtSize(pimkot, 12);
 
-    firstP.drawText(cr,{
-        x:600,
-        y:45,
-        size:15,
-        font:myFont,
-        color: rgb(0, 0.76, 0.8)
-    })
+  const pages = pdfDoc.getPages();
+  const firstP = pages[0];
+  const { width } = firstP.getSize();
+  firstP.drawText(name, {
+    x: (width - nameWidth) / 2,
+    y: 85,
+    size: 18,
+    font: timesRomanFont,
+    color: rgb(0, 0, 0)
+  });
 
-    const uri = await pdfDoc.saveAsBase64({dataUri: true});
-    saveAs(uri,"Certificate.pdf",{autoBom:true})
-    // document.querySelector("#myPDF").src = uri;
+  firstP.drawText(pimkot, {
+    x: (width - pimkotWidth) / 2,
+    y: 65,
+    size: 12,
+    font: timesRomanFont,
+    color: rgb(0, 0, 0)
+  });
+
+  const uri = await pdfDoc.saveAsBase64({ dataUri: true });
+  saveAs(uri, '1.pdf', { autoBom: true });
+  // document.querySelector("#myPDF").src = uri;
 };
