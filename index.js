@@ -31,7 +31,7 @@ const generetPdf = async (name, pimkot) => {
   //   const timesRomanFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
   let nameWidth = await myFont.widthOfTextAtSize(name, 18);
-  let pimkotWidth = await myFont``.widthOfTextAtSize(pimkot, 12);
+  let pimkotWidth = await myFont.widthOfTextAtSize(pimkot, 12);
 
   const pages = pdfDoc.getPages();
   const firstP = pages[0];
