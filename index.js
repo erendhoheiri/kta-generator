@@ -1,20 +1,93 @@
 let name = document.getElementById('name');
+let pimkot = document.getElementById('pimkot');
+let arrival = document.getElementById('arrival');
+let phone = document.getElementById('phone');
+let keberangkatan = document.getElementById('keberangkatan');
+let kepulangan = document.getElementById('kepulangan');
+let position = document.getElementById('position');
+let recomendation = document.getElementById('recomendation');
+let alertSuccess = document.getElementById('alert-success');
+let alertError = document.getElementById('alert-error');
 let submit = document.getElementById('submit');
-submit.addEventListener('click', () => {
-  //   let credentialUser = Math.ceil(Math.random() * 10000);
-  //   let str = 'TSStudetn2020' + credentialUser.toString();
-  generetPdf(name.value, pimkot.value);
-  name.value = '';
-  pimkot.value = '';
+let loading = document.getElementById('preloading');
+let textLoading = document.getElementById('text-loading');
+
+submit.addEventListener('click', async event => {
+  event.preventDefault();
+  textLoading.textContent = '';
+  const store = new SteinStore(
+    'https://api.steinhq.com/v1/storages/63970c13eced9b09e9a93974'
+  );
+  loading.classList.remove('d-none');
+  textLoading.textContent += 'Mengirim data ke Server...';
+
+  if (
+    name.value === '' ||
+    pimkot.value === '' ||
+    arrival.value === '' ||
+    phone.value === '' ||
+    keberangkatan.value === '' ||
+    kepulangan.value === '' ||
+    position.value === ''
+  ) {
+    setTimeout(() => {
+      alertError.classList.add('d-none');
+    }, 5000);
+    setTimeout(() => {
+      alertError.classList.remove('d-none');
+      loading.classList.add('d-none');
+    }, 3000);
+  } else {
+    await store
+      .append('Sheet1', [
+        {
+          nama: name.value,
+          nomer_hp: phone.value,
+          asal_pimkot: pimkot.value,
+          regional_keberangkatan: arrival.value,
+          tanggal_berangkat: keberangkatan.value,
+          tanggal_pulang: kepulangan.value,
+          posisi_saat_ini: position.value,
+          deskripsi_rekomendasi: recomendation.value
+        }
+      ])
+      .then(res => {
+        if (res) {
+          alertSuccess.classList.remove('d-none');
+          setTimeout(() => {
+            alertSuccess.classList.add('d-none');
+          }, 10000);
+          textLoading.textContent = '...';
+        } else {
+          alertError.classList.remove('d-none');
+          setTimeout(() => {
+            alertError.classList.add('d-none');
+          }, 10000);
+        }
+      })
+      .catch(error => {
+        alert(
+          'There has been a problem with your fetch operation: ' + error.message
+        );
+      });
+
+    textLoading.textContent += 'Generate Kartu Anggota...';
+
+    await generetPdf(name.value, pimkot.value);
+    name.value = '';
+    pimkot.value = '';
+    arrival.value = '';
+    phone.value = '';
+    keberangkatan.value = '';
+    kepulangan.value = '';
+    position.value = '';
+    recomendation.value = '';
+    loading.classList.add('d-none');
+  }
 });
 
 const generetPdf = async (name, pimkot) => {
   const { PDFDocument, StandardFonts, rgb } = PDFLib;
-
-  if (name === '' || pimkot === '') {
-    alert('Masukkan Nama & Lokasi Pimpinan Kota Anda');
-    return;
-  }
 
   const exBytes = await fetch('./Cert.pdf').then(res => {
     return res.arrayBuffer();
