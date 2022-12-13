@@ -25,13 +25,12 @@ submit.addEventListener('click', async event => {
 
   if (
     name.value === '' ||
-    pimkot.value === ''
-    // ||
-    // arrival.value === '' ||
-    // phone.value === '' ||
-    // keberangkatan.value === '' ||
-    // kepulangan.value === '' ||
-    // position.value === ''
+    pimkot.value === '' ||
+    arrival.value === '' ||
+    phone.value === '' ||
+    keberangkatan.value === '' ||
+    kepulangan.value === '' ||
+    position.value === ''
   ) {
     setTimeout(() => {
       loading.classList.add('d-none');
@@ -42,38 +41,38 @@ submit.addEventListener('click', async event => {
       alertError.classList.add('d-none');
     }, 10000);
   } else {
-    // await store
-    //   .append('Sheet1', [
-    //     {
-    //       nama: name.value,
-    //       nomer_hp: phone.value,
-    //       asal_pimkot: pimkot.value,
-    //       regional_keberangkatan: arrival.value,
-    //       tanggal_berangkat: keberangkatan.value,
-    //       tanggal_pulang: kepulangan.value,
-    //       posisi_saat_ini: position.value,
-    //       deskripsi_rekomendasi: recomendation.value
-    //     }
-    //   ])
-    //   .then(res => {
-    //     if (res) {
-    //       alertSuccess.classList.remove('d-none');
-    //       setTimeout(() => {
-    //         alertSuccess.classList.add('d-none');
-    //       }, 10000);
-    //       textLoading.textContent = '...';
-    //     } else {
-    //       alertError.classList.remove('d-none');
-    //       setTimeout(() => {
-    //         alertError.classList.add('d-none');
-    //       }, 10000);
-    //     }
-    //   })
-    //   .catch(error => {
-    //     alert(
-    //       'There has been a problem with your fetch operation: ' + error.message
-    //     );
-    //   });
+    await store
+      .append('Sheet1', [
+        {
+          nama: name.value,
+          nomer_hp: phone.value,
+          asal_pimkot: pimkot.value,
+          regional_keberangkatan: arrival.value,
+          tanggal_berangkat: keberangkatan.value,
+          tanggal_pulang: kepulangan.value,
+          posisi_saat_ini: position.value,
+          deskripsi_rekomendasi: recomendation.value
+        }
+      ])
+      .then(res => {
+        if (res) {
+          alertSuccess.classList.remove('d-none');
+          setTimeout(() => {
+            alertSuccess.classList.add('d-none');
+          }, 10000);
+          textLoading.textContent = '...';
+        } else {
+          alertError.classList.remove('d-none');
+          setTimeout(() => {
+            alertError.classList.add('d-none');
+          }, 10000);
+        }
+      })
+      .catch(error => {
+        alert(
+          'There has been a problem with your fetch operation: ' + error.message
+        );
+      });
 
     textLoading.textContent = 'Generate Kartu Anggota';
 
@@ -165,6 +164,8 @@ const generetPdf = async (name, pimkot) => {
     });
   }
   await image();
+
+  data = [];
 
   const uri = await pdfDoc.saveAsBase64({ dataUri: true });
   saveAs(uri, `KTA-Kongres-${name}.pdf`, { autoBom: true });
