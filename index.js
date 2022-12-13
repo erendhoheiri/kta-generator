@@ -20,7 +20,7 @@ submit.addEventListener('click', async event => {
     'https://api.steinhq.com/v1/storages/63970c13eced9b09e9a93974'
   );
   loading.classList.remove('d-none');
-  textLoading.textContent += 'Mengirim data ke Server...';
+  textLoading.textContent = 'Mengirim data ke Server...';
 
   if (
     name.value === '' ||
@@ -72,7 +72,7 @@ submit.addEventListener('click', async event => {
         );
       });
 
-    textLoading.textContent += 'Generate Kartu Anggota...';
+    textLoading.textContent = 'Generate Kartu Anggota';
 
     await generetPdf(name.value, pimkot.value);
     name.value = '';
