@@ -21,6 +21,7 @@ submit.addEventListener('click', async event => {
   );
   loading.classList.remove('d-none');
   textLoading.textContent = 'Mengirim data ke Server...';
+  document.body.style.overflow = 'hidden';
 
   if (
     name.value === '' ||
@@ -32,12 +33,13 @@ submit.addEventListener('click', async event => {
     position.value === ''
   ) {
     setTimeout(() => {
-      alertError.classList.add('d-none');
-    }, 5000);
-    setTimeout(() => {
-      alertError.classList.remove('d-none');
       loading.classList.add('d-none');
-    }, 3000);
+      alertError.classList.remove('d-none');
+      document.body.style.overflow = 'visible';
+    }, 1500);
+    setTimeout(() => {
+      alertError.classList.add('d-none');
+    }, 10000);
   } else {
     await store
       .append('Sheet1', [
@@ -84,6 +86,7 @@ submit.addEventListener('click', async event => {
     position.value = '';
     recomendation.value = '';
     foto.value = null;
+    document.body.style.overflow = 'visible';
     loading.classList.add('d-none');
   }
 });
