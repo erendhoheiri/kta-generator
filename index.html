@@ -155,6 +155,10 @@
           <div class=" mb-3">
             <textarea class="form-control" id="recomendation" rows="5" placeholder="Deskripsikan Rekomendasi Anda yang akan didorong untuk FPPI di dalam Kongres VII"></textarea>
           </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label" style="color:aliceblue">Upload Foto</label>
+            <input class="form-control" type="file" id="foto" accept="image/" onchange={encodeImageFileAsURL(this)} >
+          </div>
           <!-- Alert -->
           <div id="alert-success" class="alert alert-success m-3 d-none" role="alert">
             Data Anda Berhasil Disimpan! Kartu Anggota akan otomatis terdownload.
@@ -163,6 +167,7 @@
             Data Anda Gagal Disimpan!
             Isi semua kolom yang tersedia, kecuali deskripsi rekomendasi.
           </div>
+          
           <div class="d-grid gap-2">
             <button class="btn btn-danger" id="submit">Submit</button>
           </div>

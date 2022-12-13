@@ -10,6 +10,7 @@ let alertSuccess = document.getElementById('alert-success');
 let alertError = document.getElementById('alert-error');
 let submit = document.getElementById('submit');
 let loading = document.getElementById('preloading');
+let foto = document.getElementById('foto');
 let textLoading = document.getElementById('text-loading');
 
 submit.addEventListener('click', async event => {
@@ -82,9 +83,29 @@ submit.addEventListener('click', async event => {
     kepulangan.value = '';
     position.value = '';
     recomendation.value = '';
+    foto.value = null;
     loading.classList.add('d-none');
   }
 });
+
+var data = [];
+var fileName = '';
+
+encodeImageFileAsURL = element => {
+  let file = element.files[0];
+  let reader = new FileReader();
+  reader.readAsDataURL(file);
+
+  let obj = {
+    list: reader,
+    fileName: file.name,
+    time: new Date().toString()
+  };
+
+  reader.onloadend = () => {
+    data = [...data, obj];
+  };
+};
 
 const generetPdf = async (name, pimkot) => {
   const { PDFDocument, StandardFonts, rgb } = PDFLib;
@@ -125,7 +146,22 @@ const generetPdf = async (name, pimkot) => {
     color: rgb(0, 0, 0)
   });
 
+  async function image() {
+    if (data.length === 0) return;
+    const jpgUrl = data[0].list.result;
+
+    const jpgImageBytes = await fetch(jpgUrl).then(res => res.arrayBuffer());
+    const jpgImage = await pdfDoc.embedJpg(jpgImageBytes);
+
+    firstP.drawImage(jpgImage, {
+      x: 46,
+      y: 117,
+      width: 134,
+      height: 134
+    });
+  }
+  await image();
+
   const uri = await pdfDoc.saveAsBase64({ dataUri: true });
   saveAs(uri, `KTA-Kongres-${name}.pdf`, { autoBom: true });
-  // document.querySelector("#myPDF").src = uri;
 };
