@@ -113,7 +113,7 @@ encodeImageFileAsURL = element => {
 const generetPdf = async (name, pimkot) => {
   const { PDFDocument, StandardFonts, rgb } = PDFLib;
 
-  const exBytes = await fetch('./Cer.pdf').then(res => {
+  const exBytes = await fetch('./CERT.pdf').then(res => {
     return res.arrayBuffer();
   });
 
