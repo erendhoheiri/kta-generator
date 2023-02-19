@@ -76,7 +76,6 @@ submit.addEventListener('click', async event => {
 
     textLoading.textContent = 'Generate Kartu Anggota';
 
-    console.log('oke 1');
     await generetPdf(name.value, pimkot.value);
     name.value = '';
     pimkot.value = '';
@@ -114,8 +113,7 @@ encodeImageFileAsURL = element => {
 const generetPdf = async (name, pimkot) => {
   const { PDFDocument, StandardFonts, rgb } = PDFLib;
 
-  console.log('oke 2');
-  const exBytes = await fetch('./CERT.pdf').then(res => {
+  const exBytes = await fetch('./assets/CERT.pdf').then(res => {
     return res.arrayBuffer();
   });
 
@@ -123,13 +121,7 @@ const generetPdf = async (name, pimkot) => {
     return res.arrayBuffer();
   });
 
-  console.log('oke 3');
-  var bytes = new Uint8Array(exBytes);
-
   const pdfDoc = await PDFDocument.load(exBytes);
-
-  console.log('oke 4');
-  console.log(pdfDoc.context.header.toString());
 
   pdfDoc.registerFontkit(fontkit);
   const myFont = await pdfDoc.embedFont(exFont);
@@ -137,8 +129,6 @@ const generetPdf = async (name, pimkot) => {
 
   let nameWidth = await myFont.widthOfTextAtSize(name, 20);
   let pimkotWidth = await myFont.widthOfTextAtSize(pimkot, 16);
-
-  console.log('oke 5');
 
   const pages = pdfDoc.getPages();
   const firstP = pages[0];
