@@ -76,7 +76,7 @@ submit.addEventListener('click', async event => {
 
     textLoading.textContent = 'Generate Kartu Anggota';
 
-    await generetPdf(name.value, pimkot.value);
+    const a = await generetPdf(name.value, pimkot.value);
     name.value = '';
     pimkot.value = '';
     arrival.value = '';
@@ -88,6 +88,12 @@ submit.addEventListener('click', async event => {
     foto.value = null;
     document.body.style.overflow = 'visible';
     loading.classList.add('d-none');
+  }
+
+  if (!a) {
+    alert(
+      'There has been a problem with your fetch operation: ' + error.message
+    );
   }
 });
 
@@ -121,7 +127,11 @@ const generetPdf = async (name, pimkot) => {
     return res.arrayBuffer();
   });
 
-  const pdfDoc = await PDFDocument.load(exBytes);
+  var bytes = new Uint8Array(exBytes);
+
+  const pdfDoc = await PDFDocument.load(bytes);
+
+  console.log(pdfDoc.context.header.toString());
 
   pdfDoc.registerFontkit(fontkit);
   const myFont = await pdfDoc.embedFont(exFont);
